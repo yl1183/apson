@@ -5,15 +5,16 @@ from flask import Flask, render_template, request,redirect,url_for,jsonify
 import json
 import pandas as pd
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 db = SQLAlchemy()
 
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mssql+pyodbc://sqlserver:sqlserver@34.133.194.146/apson?driver=ODBC+Driver+17+for+SQL+Server"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['dburl']
 
 db.init_app(app)
- 
+
 class dim_user(db.Model):
     userid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String)
